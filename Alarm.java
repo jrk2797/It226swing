@@ -102,6 +102,23 @@ public class Alarm extends JFrame {
 	}
 	
 	
+	public void createAlarm(time, display) {
+		return new createAlarm(new Date(time), display);
+	}
+	
+	public void createAlarm(time) {
+		return createAlarm(time, null);
+	}
+	
+	public void createAlarm(date, display) throws ParseException{
+		return createAlarm(dateFormat.parse(date),display);
+	}
+	
+	public void createAlarm(date) throw ParseException{
+		return createAlarm(date, null);
+	}
+	
+	
 	
 	public class TimerTaskAlarm extends TimerTask {
 		public int i = 0;
