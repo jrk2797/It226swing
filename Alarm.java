@@ -103,6 +103,15 @@ public class Alarm extends JFrame {
 		    contentPane.add(timeText);
 		    contentPane.add(addAlarm);
 		    
+		
+		
+		  //Do you think this could be used for input?
+		    /*
+		    FieldListener listener = new FieldListener();
+		    dateText.addActionListener(listener);
+		    timeText.addActionListener(listener);
+		    */
+		
 		    
 		 // this is the current date, maybe helpful for letting users input the date and time? 
 		 // Using console output to show how the timer works easier
