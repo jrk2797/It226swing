@@ -22,10 +22,20 @@ import javax.swing.border.EmptyBorder;
 public class Alarm extends JFrame {
 
 	private JPanel contentPane;
+	
+	//variables for the alarm
+	private Date date;
+	private String display;
+	private int clockCount = 0;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	//I believe this would be better to do
+	private static final DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+	
 	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -100,6 +110,29 @@ public class Alarm extends JFrame {
 	     //_________________________________________________________
 		   
 	}
+	
+	// should we just create alarm variables that we can just use
+	Alarm(Date date, String display){
+		this.date = date;
+		this.display = display;
+		TimerTaskAlarm();
+		
+	}
+	
+	//
+	public void snoozeClock() {
+		clockCount++;
+		if(date.getTime() < 0)
+			date =  new Date();
+		date.setTime(date.getTime() + 60);
+		TimerTaskAlarm();
+	}
+	
+	//put the timertaskalarm in here?
+	private void TimerTaskAlarm() {
+		
+	}
+
 	
 	
 	
