@@ -134,6 +134,30 @@ public class Alarm extends JFrame {
 		   
 	}
 	
+	
+	//was thinking if we made the time like this?
+	/*
+	private int hour;
+	private int minute;
+	private int second;
+	
+	public void getTime() {
+		while(true) {
+			Calendar cal = Calendar.getInstance();
+			hour = cal.get(Calendar.HOUR_OF_DAY);
+			minute = cal.get(Calendar.MINUTE);
+			second = cal.get(Calendar.SECOND);
+
+			//12 hour time, aa for am or pm
+			SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss  aa");
+			Date date = cal.getTime();
+			String twelveTime = sd.format(date);
+			
+		}
+	}
+	
+	*/
+	
 	// should we just create alarm variables that we can just use
 	Alarm(Date date, String display){
 		this.date = date;
