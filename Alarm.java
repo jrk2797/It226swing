@@ -12,6 +12,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +26,24 @@ import javax.swing.border.EmptyBorder;
 
 public class Alarm extends JFrame {
 
+	private static final String AUDIO_CLIP_PATH = "Rooster_Alarm";
+	public static Clip getAudio() {
+		try {
+			
+			AudioInputSteam audioInput = AudioSystem.getAudioInputStream(new File(AUDIO_CLIP_PATH).getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInput);
+			return clip;
+		}
+		
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	private JPanel contentPane;
 
 	/**
