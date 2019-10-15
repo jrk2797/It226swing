@@ -111,7 +111,7 @@ public class Alarm extends JFrame {
 				e1.printStackTrace();
 			}
 	        timer.schedule(timerTask, alarmDate);
-	         timer.schedule(timerTask, alarmDate2);
+	     
 	}
 	       
 	       
