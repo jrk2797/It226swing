@@ -189,7 +189,7 @@ public class Alarm extends JFrame {
 					 alarmDate = dateFormat.parse(userDate);
 				} catch (ParseException e1) {
 					
-					e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "You put in an invalid date or time, please remember to include '/' in date, or ':' in time", "Invalid Date Error", JOptionPane.ERROR_MESSAGE);
 				}
 				System.out.println(userDate);
 				TimerTask timerTask = new TimerTaskAlarm();
