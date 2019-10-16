@@ -1,3 +1,4 @@
+
 package jswing;
 
 import java.awt.BorderLayout;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +25,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -39,6 +42,7 @@ public class Alarm extends JFrame {
 	private int clockCount = 0;
 	 JTextField dateText = new JTextField();
 	 JTextField timeText = new JTextField();
+	 
 
 	/**
 	 * Launch the application.
@@ -46,6 +50,11 @@ public class Alarm extends JFrame {
 	
 	//I believe this would be better to do
 	private static final DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private static final DateFormat curDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	private static final DateFormat curTimeFormat = new SimpleDateFormat("HH:mm:ss");
+	
+	private static Timer timer = new Timer(true); 
+	
 
 	
 	public static void main(String[] args) {
@@ -70,7 +79,8 @@ public class Alarm extends JFrame {
 	public Alarm() {
 		//Feel free to edit anything, UI is very ugly right now as well
 
-				
+	
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -78,6 +88,14 @@ public class Alarm extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.setForeground(Color.BLACK);
+		
+			Date currentDate = new Date();
+			dateText.setText(curDateFormat.format(currentDate));
+			timeText.setText(curTimeFormat.format(currentDate));
+		
+			 
+		
+		
 		
 		   
 		    JLabel daate = new JLabel("Enter Date (MM/dd/yyyy)");// added instruction 
@@ -164,22 +182,41 @@ public class Alarm extends JFrame {
 	
 
 	public class TimerTaskAlarm extends TimerTask {
-		public int i = 0;
-		 
-	    @Override
+		private String optionalMessage =null;
+		public TimerTaskAlarm(String optionalMessage) {
+			this.optionalMessage = optionalMessage;
+		}
+		
+		
+	   
 	    public void run() {
 	    	
-	        System.out.println("Run has begun at time:" + new Date());
+	    	Object[] options = { "Snooze", "Dismiss" };
+		Object selectedValue =JOptionPane.showOptionDialog(null, optionalMessage, "Alarm",
+			JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+			null, options, options[0]);	
+			
+			System.out.println(selectedValue);
+			if (selectedValue == "1")
+				timer.cancel();
+			
 	       
 	    }
+
+
+
+	
 	 
 	  
 }
+	
+	
 	class ButtonActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("Add Alarm")) {
+				
 				Date alarmDate = new Date();
 				String userDate = dateText.getText();
 				String userTime = timeText.getText();
@@ -187,14 +224,21 @@ public class Alarm extends JFrame {
 				userDate+= userTime;
 				try {
 					 alarmDate = dateFormat.parse(userDate);
+					 	String optionalMessage = null;
+					    optionalMessage = JOptionPane.showInputDialog("Please put in an optional message if you like");
+						System.out.println(userDate);
+						TimerTask timerTask = new TimerTaskAlarm(optionalMessage);
+				     
+				        timer.schedule( timerTask, alarmDate, 60000);
+				  
+				      
 				} catch (ParseException e1) {
 					
-						JOptionPane.showMessageDialog(null, "You put in an invalid date or time, please remember to include '/' in date, or ':' in time", "Invalid Date Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "You put in an invalid date or time, please remember to include '/' in date, or ':' in time", "Invalid Date Error", JOptionPane.ERROR_MESSAGE);
 				}
-				System.out.println(userDate);
-				TimerTask timerTask = new TimerTaskAlarm();
-		        Timer timer = new Timer(true); 
-		        timer.schedule( timerTask, alarmDate);
+				
+				
+		       
 			}
 			else
 				System.out.println();
