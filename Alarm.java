@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.GridBagLayout;//changed
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -90,18 +91,54 @@ public class Alarm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setForeground(Color.BLACK);
 		
-		 	JTextField dateText = new JTextField();
+		    JTextField dateText = new JTextField();
 		    JTextField timeText = new JTextField();
-		    JLabel daate = new JLabel("Date"); 
-		    JLabel time = new JLabel("Time");
+		    JLabel daate = new JLabel("Enter Date (MM/dd/yyyy)");// added instruction 
+		    daate.setForeground(Color.blue);//add color
+		    JLabel time = new JLabel("Enter Time (HH:mm:ss)");//added instruction
+		    time.setForeground(Color.blue);//added color
 		    JButton addAlarm = new JButton("Add Alarm");
+		    addAlarm.setForeground(Color.red);//added color
 		    addAlarm.addActionListener(new ButtonActionListener());
-		    contentPane.setLayout(new GridLayout(3, 2));
+		    
+		    GridBagLayout grid = new GridBagLayout();//added gridbaglayout
+		    GridBagConstraints con = new GridBagConstraints();
+		    contentPane.setLayout(grid);
+		    con.fill = GridBagConstraints.HORIZONTAL;
+		    
+		   
+		    
+		    con.weightx = 0.5;//daate format
+		    con.gridx = 0;
+		    con.gridy = 0;
+		    con.ipady = 40;
+		    grid.setConstraints(daate, con);
 		    contentPane.add(daate);
-		    contentPane.add(time);
+		    
+		    con.weightx = 0.5; //dateText format
+		    con.gridx = 1;
+		    con.gridy = 0;
+		    grid.setConstraints(dateText, con);
 		    contentPane.add(dateText);
+		    
+		    con.weightx = 0.5;//time format
+		    con.gridx = 0;
+		    con.gridy = 1;
+		    grid.setConstraints(time, con);
+		    contentPane.add(time);
+		    
+		    con.weightx = 1.0;//timeText format
+		    con.gridx = 1;
+		    con.gridy = 1;
+		    grid.setConstraints(timeText, con);
 		    contentPane.add(timeText);
-		    contentPane.add(addAlarm);
+		    
+		  con.gridx = 0;//addAlarm format
+		  con.gridy = 2;
+		  con.gridwidth = 3;
+		  con.ipadx = 100;
+		  grid.setConstraints(addAlarm, con);
+		  contentPane.add(addAlarm);
 		    
 		
 		
