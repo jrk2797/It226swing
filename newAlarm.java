@@ -64,6 +64,7 @@ public class Alarm extends JFrame {
 				try {
 					Alarm frame = new Alarm();
 					frame.setVisible(true);
+					frame.setTitle("Alarms");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
